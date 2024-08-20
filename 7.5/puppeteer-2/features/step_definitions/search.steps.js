@@ -90,9 +90,9 @@ When("выбирает время сеанса на Микки Маус на 11-
   }
 );
 
-When("выбирает место в зале кинотеатра 4 ряд 3 место", async function () {
+When("выбирает место в зале кинотеатра 2 ряд 8 место", async function () {
   await page.waitForSelector("div.buying-scheme");
-  const place = ".buying-scheme__wrapper > :nth-child(4) > :nth-child(3)";
+  const place = ".buying-scheme__wrapper > :nth-child(2) > :nth-child(8)";
   await clickElement(page, place);
   await clickElement(page, "button.acceptin-button");
 });

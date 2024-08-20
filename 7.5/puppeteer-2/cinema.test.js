@@ -53,7 +53,7 @@ describe("Go to cinema tests", () => {
     await clickElement(page, "nav > a:nth-child(2)");
     await clickElement(page, "body > main > section:nth-child(2) > div.movie-seances__hall > ul > li:nth-child(1) > a");
     await page.waitForSelector("div.buying-scheme");
-    const place = ".buying-scheme__wrapper > :nth-child(4) > :nth-child(3)";
+    const place = ".buying-scheme__wrapper > :nth-child(2) > :nth-child(8)";
     await clickElement(page, place);
     await clickElement(page, "button.acceptin-button");
     const stateOfButton = await page.$eval('button', (button) => {
