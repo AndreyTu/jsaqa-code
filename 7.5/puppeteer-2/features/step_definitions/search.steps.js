@@ -1,22 +1,32 @@
-const { When, Then, Before, After } = require("cucumber");
+const { When, Then, Before, After, Given } = require("cucumber");
 const puppeteer = require("puppeteer");
 const chai = require("chai");
 const expect = chai.expect;
-const { clickElement, getText } = require("../lib/commands.js");
+const { getText, clickElement } = require("../../lib/commands.js");
 
 Before(async function () {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   this.browser = browser;
   this.page = page;
-  await this.page.goto("http://qamid.tmweb.ru/client/index.php");
-  await clickElement(this.page, "a:nth-child(2) > span.page-nav__day-week");
-  await clickElement(this.page, "a.movie-seances__time");
 });
+
 After(async function () {
   if (this.browser) {
     await this.browser.close();
   }
+});
+
+Given('пользователь на странице {string}', async function (string) {
+  return await this.page.goto(string);
+});
+
+Given('пользователь нажимает кнопку неделя', async function () {
+  return await clickElement(this.page, "a:nth-child(2) > span.page-nav__day-week");
+});
+
+Given('пользователь нажимает кнопку фильм', async function () {
+  await clickElement(this.page, "a.movie-seances__time");
 });
 
 When(
@@ -31,7 +41,7 @@ When(
 );
 
 Then(
-  "пользователь видит страницу выбранным рядом и местом: {string}",
+  "пользователь видит страницу выбранным рядом и местом: {int}",
   async function (string) {
     const actual = await getText(this.page, ".ticket__chairs");
     const expected = string;
